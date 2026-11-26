@@ -12,9 +12,16 @@ import os
 
 WORD = "apophenia"
 
+DEFAULT_OUTPUT_PATH = "/output/entry.txt"
+
+
+def resolve_output_path() -> str:
+    """Return the output path, honouring OUTPUT_PATH when set."""
+    return os.environ.get("OUTPUT_PATH", DEFAULT_OUTPUT_PATH)
+
 
 def main() -> None:
-    path = os.environ.get("OUTPUT_PATH", "/output/entry.txt")
+    path = resolve_output_path()
     parent = os.path.dirname(path)
     if parent:
         os.makedirs(parent, exist_ok=True)
